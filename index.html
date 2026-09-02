@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portal Ujian SMKN 5 Yogyakarta</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            background-color: #f0f4f8;
+            /* Mencegah seleksi teks di seluruh halaman */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #0d47a1;
+            text-align: center;
+        }
+
+        .header h2 { color: #0d47a1; font-size: 18px; margin-bottom: 4px; }
+        .header p { color: #64748b; font-size: 12px; margin-bottom: 18px; }
+
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 6px; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        input:focus { outline: none; border-color: #0d47a1; }
+
+        .btn {
+            width: 100%;
+            padding: 11px;
+            background: #0d47a1;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #1565c0; }
+        .btn-danger { background: #ef4444; padding: 6px 12px; font-size: 11px; width: auto; }
+        .btn-danger:hover { background: #dc2626; }
+
+        .error-msg { color: #dc2626; font-size: 12px; margin-top: 10px; display: none; }
+
+        .footer-nav { margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 12px; }
+        .footer-nav a { font-size: 11px; color: #64748b; text-decoration: none; font-weight: 600; }
+        .footer-nav a:hover { color: #0d47a1; }
+
+        /* SEMUA SECTION LAIN TERSEMBUNYI SAAT AVAL */
+        #menuSection, #pengawasSection, #pinSection, #tokenDisplaySection, #gformSection { display: none; }
+
+        .menu-header {
+            background: #0d47a1;
+            color: #ffffff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+        .menu-list { max-height: 55vh; overflow-y: auto; padding-right: 4px; }
+        .item-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; margin-bottom: 10px; text-align: left; }
+        .item-title { font-size: 14px; font-weight: 700; color: #0d47a1; margin-bottom: 4px; }
+        .item-info { font-size: 11px; color: #64748b; margin-bottom: 10px; }
+        
+        .btn-gform {
+            display: block;
+            text-align: center;
+            background: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 9px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        .btn-gform:hover { background: #1d4ed8; }
+
+        .token-box { background: #eff6ff; border: 2px dashed #2563eb; border-radius: 8px; padding: 15px; margin: 15px 0; }
+        .token-val { font-size: 32px; font-weight: 800; color: #1e3a8a; letter-spacing: 4px; margin: 5px 0; }
+        .timer { font-size: 11px; color: #64748b; font-weight: 600; }
+
+        /* STYLE LAYAR GOOGLE FORM FULLSCREEN */
+        #gformSection {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+        }
+        .gform-bar {
+            height: 50px;
+            background: #0d47a1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .btn-back-portal {
+            background: #e2e8f0;
+            color: #0f172a;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-back-portal:hover { background: #cbd5e1; }
+        .gform-iframe {
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 50px);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="container">
+
+        <!-- 1. HALAMAN UTAMA / LOGIN SISWA -->
+        <div id="loginSection" class="card">
+            <div class="header">
+                <h2>ASTS SMKN 5 Yogyakarta</h2>
+                <p>Masukkan Token Ujian Sesi 15-Menit</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="tokenInput">TOKEN UJIAN</label>
+                    <input type="text" id="tokenInput" placeholder="Contoh: K5-8392" maxlength="10" required autocomplete="off">
+                </div>
+                <button type="submit" class="btn">Masuk Ujian</button>
+                <div id="loginError" class="error-msg">Token salah atau sudah kadaluwarsa!</div>
+            </form>
+
+            <div class="footer-nav">
+                <a href="javascript:void(0)" onclick="switchTab('pengawas')">🔒 Akses Pengawas Ujian &rarr;</a>
+            </div>
+        </div>
+
+        <!-- 2. HALAMAN MENU MATA PELAJARAN -->
+        <div id="menuSection" class="card">
+            <div class="menu-header">
+                <div>
+                    <h1 style="font-size:14px;">Menu Ujian Hari Ini</h1>
+                    <p style="font-size: 10px; color: #93c5fd;">SMKN 5 Yogyakarta</p>
+                </div>
+                <button onclick="logout()" class="btn btn-danger">Keluar</button>
+            </div>
+
+            <div class="menu-list">
+                <!-- MAPEL 1 -->
+                <div class="item-card">
+                    <div class="item-title">Matematika</div>
+                    <div class="item-info">Durasi: 90 Menit | 30 PG</div>
+                    <button onclick="bukaGForm('https://docs.google.com/forms/d/e/PASTE_LINK_GFORM_1/viewform')" class="btn-gform">Kerjakan Soal</button>
+                </div>
+
+                <!-- MAPEL 2 -->
+                <div class="item-card">
+                    <div class="item-title">Bahasa Indonesia</div>
+                    <div class="item-info">Durasi: 90 Menit | 40 PG</div>
+                    <button onclick="bukaGForm('https://docs.google.com/forms/d/e/PASTE_LINK_GFORM_2/viewform')" class="btn-gform">Kerjakan Soal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. HALAMAN PENGAWAS -->
+        <div id="pengawasSection" class="card">
+            <div class="header">
+                <h2>Panel Pengawas Ujian</h2>
+                <p>Token Dinamis (Berganti Tiap 15 Menit)</p>
+            </div>
+
+            <div id="pinSection">
+                <div class="form-group">
+                    <label for="pinInput">MASUKKAN PIN PENGAWAS</label>
+                    <input type="password" id="pinInput" placeholder="****" maxlength="6">
+                </div>
+                <button onclick="verifyPin()" class="btn">Buka Panel</button>
+                <div id="pinError" class="error-msg">PIN Pengawas Salah!</div>
+            </div>
+
+            <div id="tokenDisplaySection">
+                <div class="token-box">
+                    <div style="font-size: 11px; font-weight:700; color:#1e40af;">TOKEN SAAT INI</div>
+                    <div id="tokenVal" class="token-val">----</div>
+                    <div class="timer">Berganti otomatis dalam: <span id="countdown" style="color:#d97706;">--:--</span></div>
+                </div>
+            </div>
+
+            <div class="footer-nav">
+                <a href="javascript:void(0)" onclick="switchTab('login')">&larr; Kembali ke Halaman Siswa</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 4. LAYAR GOOGLE FORM -->
+<div id="gformSection">
+    <div class="gform-bar">
+        <span style="color: #ffffff; font-size: 12px; font-weight: 600;">Ujian Online SMKN 5 Yogyakarta</span>
+        <button onclick="keluarDariSoal()" class="btn-back-portal">&larr; Selesai / Kembali ke Login</button>
+    </div>
+    <iframe id="gformIframe" class="gform-iframe" src="about:blank"></iframe>
+</div>
+
+<script>
+    const SECRET_KEY = 5791;
+    const PIN_PENGAWAS = "1234";
+    let timerInterval = null;
+
+    // =========================================================================
+    // 1. SKRIP ANTI-KECURANGAN (DETEKSI PINDAH TAB / KELUAR APLIKASI)
+    // =========================================================================
+    let jumlahKabur = 0;
+    const batasKabur = 3; // Maksimal 3 kali toleransi keluar aplikasi
+
+    document.addEventListener("visibilitychange", function() {
+        const gformDisplay = document.getElementById('gformSection').style.display;
+        const menuDisplay = document.getElementById('menuSection').style.display;
+
+        // Hanya memantau saat siswa sudah berada di menu ujian atau sedang mengerjakan soal
+        if (document.hidden && (gformDisplay === 'flex' || menuDisplay === 'block')) {
+            jumlahKabur++;
+            
+            if (jumlahKabur >= batasKabur) {
+                alert("UJIAN DIBATALKAN!\n\nAnda telah terdeteksi keluar dari layar ujian sebanyak " + batasKabur + " kali.");
+                keluarDariSoal(); // Mengeluarkan siswa otomatis ke halaman login
+            } else {
+                alert("PERINGATAN (" + jumlahKabur + "/" + batasKabur + ")!\n\nDilarang keluar aplikasi, membuka tab lain, atau membalas notifikasi!");
+            }
+        }
+    });
+
+    // MATIKAN KLIK KANAN DAN SHORTCUT COPY-PASTE/INSPECT
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.key === 'u') || 
+            (e.ctrlKey && e.key === 'c') || 
+            (e.ctrlKey && e.key === 'v')) {
+            e.preventDefault();
+        }
+    });
+
+    // =========================================================================
+    // 2. SISTEM TOKEN DINAMIS 15 MENIT
+    // =========================================================================
+    function generate15MinToken() {
+        const now = new Date();
+        const tanggal = now.getDate();
+        const bulan = now.getMonth() + 1;
+        const jam = now.getHours();
+        
+        const blok15Menit = Math.floor(now.getMinutes() / 15);
+        const seed = (tanggal * 100000) + (bulan * 1000) + (jam * 10) + blok15Menit + SECRET_KEY;
+        const hashCode = Math.floor(Math.abs(Math.sin(seed) * 10000));
+        
+        return "K5-" + String(hashCode).padStart(4, '0');
+    }
+
+    // Navigasi Antar Halaman
+    function switchTab(target) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('menuSection').style.display = 'none';
+        document.getElementById('pengawasSection').style.display = 'none';
+        document.getElementById('gformSection').style.display = 'none';
+
+        if (target === 'login') {
+            document.getElementById('loginSection').style.display = 'block';
+            clearInterval(timerInterval);
+        } else if (target === 'menu') {
+            document.getElementById('menuSection').style.display = 'block';
+        } else if (target === 'pengawas') {
+            document.getElementById('pengawasSection').style.display = 'block';
+            document.getElementById('pinSection').style.display = 'block';
+            document.getElementById('tokenDisplaySection').style.display = 'none';
+            document.getElementById('pinInput').value = '';
+            document.getElementById('pinError').style.display = 'none';
+        }
+    }
+
+    // Buka Google Form di Tab yang Sama
+    function bukaGForm(urlForm) {
+        document.getElementById('gformIframe').src = urlForm;
+        document.getElementById('gformSection').style.display = 'flex';
+    }
+
+    // Keluar dari Soal & Reset Sesi Ujian
+    function keluarDariSoal() {
+        document.getElementById('gformIframe').src = 'about:blank';
+        document.getElementById('gformSection').style.display = 'none';
+        jumlahKabur = 0; // Reset hitungan pelanggaran
+        logout();
+    }
+
+    // Submit Login Siswa
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const inputVal = document.getElementById('tokenInput').value.trim().toUpperCase();
+        const validToken = generate15MinToken();
+
+        if (inputVal === validToken) {
+            document.getElementById('loginError').style.display = 'none';
+            switchTab('menu');
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    });
+
+    // Logout Siswa
+    function logout() {
+        document.getElementById('tokenInput').value = '';
+        switchTab('login');
+    }
+
+    // Verifikasi PIN Pengawas
+    function verifyPin() {
+        const inputPin = document.getElementById('pinInput').value;
+        if (inputPin === PIN_PENGAWAS) {
+            document.getElementById('pinSection').style.display = 'none';
+            document.getElementById('tokenDisplaySection').style.display = 'block';
+            document.getElementById('pinError').style.display = 'none';
+            startPengawasEngine();
+        } else {
+            document.getElementById('pinError').style.display = 'block';
+        }
+    }
+
+    // Engine Timer Pengawas
+    function startPengawasEngine() {
+        function update() {
+            const now = new Date();
+            document.getElementById('tokenVal').innerText = generate15MinToken();
+
+            const menitSaatIni = now.getMinutes();
+            const sisaMenit = 14 - (menitSaatIni % 15);
+            const sisaDetik = 59 - now.getSeconds();
+
+            document.getElementById('countdown').innerText = 
+                String(sisaMenit).padStart(2, '0') + ":" + String(sisaDetik).padStart(2, '0');
+        }
+
+        update();
+        clearInterval(timerInterval);
+        timerInterval = setInterval(update, 1000);
+    }
+</script>
+
+</body>
+</html>
