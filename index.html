@@ -43,6 +43,14 @@
             text-align: center;
         }
 
+        /* STYLING UNTUK LOGO SEKOLAH */
+        .school-logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
         .header h2 { color: #0d47a1; font-size: 18px; margin-bottom: 4px; }
         .header p { color: #64748b; font-size: 12px; margin-bottom: 18px; }
 
@@ -82,7 +90,15 @@
         .footer-nav a { font-size: 11px; color: #64748b; text-decoration: none; font-weight: 600; }
         .footer-nav a:hover { color: #0d47a1; }
 
-        /* SEMUA SECTION LAIN TERSEMBUNYI SAAT AVAL */
+        /* KETERANGAN TAMBAHAN DI BAWAH KOTAK LOGIN */
+        .footer-info {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+
+        /* SEMUA SECTION LAIN TERSEMBUNYI SAAT AWAL */
         #menuSection, #pengawasSection, #pinSection, #tokenDisplaySection, #gformSection { display: none; }
 
         .menu-header {
@@ -120,6 +136,19 @@
         .token-box { background: #eff6ff; border: 2px dashed #2563eb; border-radius: 8px; padding: 15px; margin: 15px 0; }
         .token-val { font-size: 32px; font-weight: 800; color: #1e3a8a; letter-spacing: 4px; margin: 5px 0; }
         .timer { font-size: 11px; color: #64748b; font-weight: 600; }
+
+        /* PESAN DILUAR JADWAL UJIAN */
+        .no-schedule-msg {
+            background: #fffbebf8;
+            border: 1px solid #fef3c7;
+            color: #b45309;
+            padding: 18px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
 
         /* STYLE LAYAR GOOGLE FORM FULLSCREEN */
         #gformSection {
@@ -169,6 +198,9 @@
         <!-- 1. HALAMAN UTAMA / LOGIN SISWA -->
         <div id="loginSection" class="card">
             <div class="header">
+                <!-- LOGO SEKOLAH -->
+                <img src="logo.png" alt="Logo SMKN 5 Yogyakarta" class="school-logo">
+                
                 <h2>ASTS SMKN 5 Yogyakarta</h2>
                 <p>Masukkan Token Ujian Sesi 15-Menit</p>
             </div>
@@ -185,6 +217,11 @@
             <div class="footer-nav">
                 <a href="javascript:void(0)" onclick="switchTab('pengawas')">🔒 Akses Pengawas Ujian &rarr;</a>
             </div>
+
+            <div class="footer-info">
+                Dilarang keras berpindah aplikasi selama ujian.<br>
+                © SMKN 5 Yogyakarta
+            </div>
         </div>
 
         <!-- 2. HALAMAN MENU MATA PELAJARAN -->
@@ -198,39 +235,42 @@
             </div>
 
             <div class="menu-list">
-                <!-- MAPEL 1 -->
-                <div class="item-card">
-                    <div class="item-title">Bahasa Indonesia</div>
-                    <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
-                    <button onclick="bukaGForm('https://forms.gle/xd2ML1oqRK1saSXV6')" class="btn-gform">Kerjakan Soal</button>
+                <!-- KELAS XII (07.30 - 12.00) -->
+                <div id="kelasXIISection" style="display: none;">
+                    <div class="item-card">
+                        <div class="item-title">Bahasa Indonesia XII</div>
+                        <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
+                        <button onclick="bukaGForm('https://forms.gle/xd2ML1oqRK1saSXV6')" class="btn-gform">Kerjakan Soal</button>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-title">PA Islam XII</div>
+                        <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
+                        <button onclick="bukaGForm('https://forms.gle/BJMPSZVxoDiFd62X9')" class="btn-gform">Kerjakan Soal</button>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-title">PA Kristen XII</div>
+                        <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
+                        <button onclick="bukaGForm('https://forms.gle/KvNPoUJ3UiTW9wpA8')" class="btn-gform">Kerjakan Soal</button>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-title">PA Katolik XII</div>
+                        <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
+                        <button onclick="bukaGForm('https://forms.gle/DUGLGt5c8C2GADbi8')" class="btn-gform">Kerjakan Soal</button>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-title">PA Hindu XII</div>
+                        <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
+                        <button onclick="bukaGForm('https://forms.gle/Go5vAh3BnDWM8goK7')" class="btn-gform">Kerjakan Soal</button>
+                    </div>
                 </div>
 
-                <!-- MAPEL 2 -->
-                <div class="item-card">
-                    <div class="item-title">PA Islam</div>
-                    <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
-                    <button onclick="bukaGForm('https://forms.gle/BJMPSZVxoDiFd62X9')" class="btn-gform">Kerjakan Soal</button>
-                </div>
-
-                 <!-- MAPEL 3 -->
-                <div class="item-card">
-                    <div class="item-title">PA Kristen</div>
-                    <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
-                    <button onclick="bukaGForm('https://forms.gle/KvNPoUJ3UiTW9wpA8')" class="btn-gform">Kerjakan Soal</button>
-                </div>
-
-                  <!-- MAPEL 4 -->
-                <div class="item-card">
-                    <div class="item-title">PA Katolik</div>
-                    <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
-                    <button onclick="bukaGForm('https://forms.gle/DUGLGt5c8C2GADbi8')" class="btn-gform">Kerjakan Soal</button>
-                </div>
-
-                <!-- MAPEL 5 -->
-                <div class="item-card">
-                    <div class="item-title">PA Hindu</div>
-                    <div class="item-info">Durasi: 90 Menit | 40 PG | 2 Essay</div>
-                    <button onclick="bukaGForm('https://forms.gle/Go5vAh3BnDWM8goK7')" class="btn-gform">Kerjakan Soal</button>
+                <!-- PESAN DILUAR JADWAL -->
+                <div id="noScheduleSection" class="no-schedule-msg" style="display: none;">
+                    Tidak ada jadwal ujian kali ini, ikuti ujian sesuai waktu yang dijadwalkan sekolah !
                 </div>
             </div>
         </div>
@@ -285,26 +325,24 @@
     // 1. SKRIP ANTI-KECURANGAN (DETEKSI PINDAH TAB / KELUAR APLIKASI)
     // =========================================================================
     let jumlahKabur = 0;
-    const batasKabur = 3; // Maksimal 3 kali toleransi keluar aplikasi
+    const batasKabur = 3;
 
     document.addEventListener("visibilitychange", function() {
         const gformDisplay = document.getElementById('gformSection').style.display;
         const menuDisplay = document.getElementById('menuSection').style.display;
 
-        // Hanya memantau saat siswa sudah berada di menu ujian atau sedang mengerjakan soal
         if (document.hidden && (gformDisplay === 'flex' || menuDisplay === 'block')) {
             jumlahKabur++;
             
             if (jumlahKabur >= batasKabur) {
                 alert("UJIAN DIBATALKAN!\n\nAnda telah terdeteksi keluar dari layar ujian sebanyak " + batasKabur + " kali.");
-                keluarDariSoal(); // Mengeluarkan siswa otomatis ke halaman login
+                keluarDariSoal();
             } else {
                 alert("PERINGATAN (" + jumlahKabur + "/" + batasKabur + ")!\n\nDilarang keluar aplikasi, membuka tab lain, atau membalas notifikasi!");
             }
         }
     });
 
-    // MATIKAN KLIK KANAN DAN SHORTCUT COPY-PASTE/INSPECT
     document.addEventListener('contextmenu', event => event.preventDefault());
     document.addEventListener('keydown', function(e) {
         if (e.key === 'F12' || 
@@ -332,6 +370,30 @@
         return "K5-" + String(hashCode).padStart(4, '0');
     }
 
+    // PENGATURAN JADWAL TAMPILAN MAPEL KELAS XII
+    function renderMenuSchedule() {
+        const now = new Date();
+        const menitSekarang = (now.getHours() * 60) + now.getMinutes();
+
+        // Konversi Jam Ujian ke Total Menit:
+        // 07:30 = (7 * 60) + 30 = 450 menit
+        // 12:00 = (12 * 60) + 0 = 720 menit
+        const kXIIStart = 450;
+        const kXIIEnd = 720;
+
+        const secXII = document.getElementById('kelasXIISection');
+        const secNo = document.getElementById('noScheduleSection');
+
+        secXII.style.display = 'none';
+        secNo.style.display = 'none';
+
+        if (menitSekarang >= kXIIStart && menitSekarang <= kXIIEnd) {
+            secXII.style.display = 'block';
+        } else {
+            secNo.style.display = 'block';
+        }
+    }
+
     // Navigasi Antar Halaman
     function switchTab(target) {
         document.getElementById('loginSection').style.display = 'none';
@@ -343,6 +405,7 @@
             document.getElementById('loginSection').style.display = 'block';
             clearInterval(timerInterval);
         } else if (target === 'menu') {
+            renderMenuSchedule();
             document.getElementById('menuSection').style.display = 'block';
         } else if (target === 'pengawas') {
             document.getElementById('pengawasSection').style.display = 'block';
@@ -353,21 +416,18 @@
         }
     }
 
-    // Buka Google Form di Tab yang Sama
     function bukaGForm(urlForm) {
         document.getElementById('gformIframe').src = urlForm;
         document.getElementById('gformSection').style.display = 'flex';
     }
 
-    // Keluar dari Soal & Reset Sesi Ujian
     function keluarDariSoal() {
         document.getElementById('gformIframe').src = 'about:blank';
         document.getElementById('gformSection').style.display = 'none';
-        jumlahKabur = 0; // Reset hitungan pelanggaran
+        jumlahKabur = 0;
         logout();
     }
 
-    // Submit Login Siswa
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const inputVal = document.getElementById('tokenInput').value.trim().toUpperCase();
@@ -381,13 +441,11 @@
         }
     });
 
-    // Logout Siswa
     function logout() {
         document.getElementById('tokenInput').value = '';
         switchTab('login');
     }
 
-    // Verifikasi PIN Pengawas
     function verifyPin() {
         const inputPin = document.getElementById('pinInput').value;
         if (inputPin === PIN_PENGAWAS) {
@@ -400,7 +458,6 @@
         }
     }
 
-    // Engine Timer Pengawas
     function startPengawasEngine() {
         function update() {
             const now = new Date();
