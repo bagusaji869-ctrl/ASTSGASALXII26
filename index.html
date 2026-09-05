@@ -322,14 +322,45 @@
     let timerInterval = null;
 
     // =========================================================================
+    // WAKE LOCK API (MENCEGAH LAYAR HP MATI / SLEEP SEBENTAR-SEBENTAR)
+    // =========================================================================
+    let wakeLock = null;
+
+    async function requestWakeLock() {
+        try {
+            if ('wakeLock' in navigator) {
+                wakeLock = await navigator.wakeLock.request('screen');
+            }
+        } catch (err) {
+            console.log("Wake Lock Error:", err);
+        }
+    }
+
+    async function releaseWakeLock() {
+        if (wakeLock !== null) {
+            try {
+                await wakeLock.release();
+                wakeLock = null;
+            } catch (err) {
+                console.log("Release Wake Lock Error:", err);
+            }
+        }
+    }
+
+    // =========================================================================
     // 1. SKRIP ANTI-KECURANGAN (DETEKSI PINDAH TAB / KELUAR APLIKASI)
     // =========================================================================
     let jumlahKabur = 0;
     const batasKabur = 3;
 
-    document.addEventListener("visibilitychange", function() {
+    document.addEventListener("visibilitychange", async function() {
         const gformDisplay = document.getElementById('gformSection').style.display;
         const menuDisplay = document.getElementById('menuSection').style.display;
+
+        // Jika layar aktif kembali, re-aktivasikan Screen Wake Lock
+        if (document.visibilityState === 'visible' && (gformDisplay === 'flex' || menuDisplay === 'block')) {
+            await requestWakeLock();
+        }
 
         if (document.hidden && (gformDisplay === 'flex' || menuDisplay === 'block')) {
             jumlahKabur++;
@@ -404,6 +435,7 @@
         if (target === 'login') {
             document.getElementById('loginSection').style.display = 'block';
             clearInterval(timerInterval);
+            releaseWakeLock(); // Lepaskan pengunci layar saat kembali ke login
         } else if (target === 'menu') {
             renderMenuSchedule();
             document.getElementById('menuSection').style.display = 'block';
@@ -419,6 +451,7 @@
     function bukaGForm(urlForm) {
         document.getElementById('gformIframe').src = urlForm;
         document.getElementById('gformSection').style.display = 'flex';
+        requestWakeLock(); // Pastikan Wake Lock tetap aktif saat membuka Google Form
     }
 
     function keluarDariSoal() {
@@ -435,6 +468,7 @@
 
         if (inputVal === validToken) {
             document.getElementById('loginError').style.display = 'none';
+            requestWakeLock(); // Aktifkan kunci layar setelah berhasil login
             switchTab('menu');
         } else {
             document.getElementById('loginError').style.display = 'block';
