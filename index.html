@@ -1,4 +1,4 @@
-99<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,6 @@
             overflow: hidden;
             position: fixed;
             background-color: #f0f4f8;
-            /* Mencegah seleksi teks di seluruh halaman */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -43,7 +42,6 @@
             text-align: center;
         }
 
-        /* STYLING UNTUK LOGO SEKOLAH */
         .school-logo {
             width: 80px;
             height: auto;
@@ -56,7 +54,7 @@
 
         .form-group { margin-bottom: 15px; text-align: left; }
         label { display: block; font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 6px; }
-        input[type="text"], input[type="password"] {
+        input[type="text"] {
             width: 100%;
             padding: 11px;
             border: 1px solid #cbd5e1;
@@ -86,20 +84,14 @@
 
         .error-msg { color: #dc2626; font-size: 12px; margin-top: 10px; display: none; }
 
-        .footer-nav { margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 12px; }
-        .footer-nav a { font-size: 11px; color: #64748b; text-decoration: none; font-weight: 600; }
-        .footer-nav a:hover { color: #0d47a1; }
-
-        /* KETERANGAN TAMBAHAN DI BAWAH KOTAK LOGIN */
         .footer-info {
             font-size: 10px;
             color: #94a3b8;
-            margin-top: 12px;
+            margin-top: 20px;
             line-height: 1.4;
         }
 
-        /* SEMUA SECTION LAIN TERSEMBUNYI SAAT AWAL */
-        #menuSection, #pengawasSection, #pinSection, #tokenDisplaySection, #gformSection { display: none; }
+        #menuSection, #gformSection { display: none; }
 
         .menu-header {
             background: #0d47a1;
@@ -133,11 +125,6 @@
         }
         .btn-gform:hover { background: #1d4ed8; }
 
-        .token-box { background: #eff6ff; border: 2px dashed #2563eb; border-radius: 8px; padding: 15px; margin: 15px 0; }
-        .token-val { font-size: 32px; font-weight: 800; color: #1e3a8a; letter-spacing: 4px; margin: 5px 0; }
-        .timer { font-size: 11px; color: #64748b; font-weight: 600; }
-
-        /* PESAN DILUAR JADWAL UJIAN */
         .no-schedule-msg {
             background: #fffbebf8;
             border: 1px solid #fef3c7;
@@ -150,7 +137,6 @@
             margin-top: 10px;
         }
 
-        /* STYLE LAYAR GOOGLE FORM FULLSCREEN */
         #gformSection {
             position: fixed;
             top: 0;
@@ -195,12 +181,10 @@
 <div class="wrapper">
     <div class="container">
 
-        <!-- 1. HALAMAN UTAMA / LOGIN SISWA -->
+        <!-- HALAMAN UTAMA / LOGIN SISWA -->
         <div id="loginSection" class="card">
             <div class="header">
-                <!-- LOGO SEKOLAH -->
                 <img src="images.jpg" alt="Logo SMKN 5 Yogyakarta" class="school-logo">
-                
                 <h2>ASTS SMKN 5 Yogyakarta</h2>
                 <p>Masukkan Token Ujian Sesi 15-Menit</p>
             </div>
@@ -214,17 +198,13 @@
                 <div id="loginError" class="error-msg">Token salah atau sudah kadaluwarsa!</div>
             </form>
 
-            <div class="footer-nav">
-                <a href="javascript:void(0)" onclick="switchTab('pengawas')">🔒 Akses Pengawas Ujian &rarr;</a>
-            </div>
-
             <div class="footer-info">
                 Dilarang keras berpindah aplikasi selama ujian.<br>
                 © SMKN 5 Yogyakarta
             </div>
         </div>
 
-        <!-- 2. HALAMAN MENU MATA PELAJARAN -->
+        <!-- HALAMAN MENU MATA PELAJARAN -->
         <div id="menuSection" class="card">
             <div class="menu-header">
                 <div>
@@ -235,7 +215,6 @@
             </div>
 
             <div class="menu-list">
-                <!-- KELAS XII (07.30 - 12.00) -->
                 <div id="kelasXIISection" style="display: none;">
                    <div class="item-card">
                         <div class="item-title">Matematika XII</div>
@@ -286,46 +265,16 @@
                     </div>
                 </div>
 
-                <!-- PESAN DILUAR JADWAL -->
                 <div id="noScheduleSection" class="no-schedule-msg" style="display: none;">
                     Tidak ada jadwal ujian kali ini, ikuti ujian sesuai waktu yang dijadwalkan sekolah !
                 </div>
             </div>
         </div>
 
-        <!-- 3. HALAMAN PENGAWAS -->
-        <div id="pengawasSection" class="card">
-            <div class="header">
-                <h2>Panel Pengawas Ujian</h2>
-                <p>Token Dinamis (Berganti Tiap 15 Menit)</p>
-            </div>
-
-            <div id="pinSection">
-                <div class="form-group">
-                    <label for="pinInput">MASUKKAN PIN PENGAWAS</label>
-                    <input type="password" id="pinInput" placeholder="****" maxlength="6">
-                </div>
-                <button onclick="verifyPin()" class="btn">Buka Panel</button>
-                <div id="pinError" class="error-msg">PIN Pengawas Salah!</div>
-            </div>
-
-            <div id="tokenDisplaySection">
-                <div class="token-box">
-                    <div style="font-size: 11px; font-weight:700; color:#1e40af;">TOKEN SAAT INI</div>
-                    <div id="tokenVal" class="token-val">----</div>
-                    <div class="timer">Berganti otomatis dalam: <span id="countdown" style="color:#d97706;">--:--</span></div>
-                </div>
-            </div>
-
-            <div class="footer-nav">
-                <a href="javascript:void(0)" onclick="switchTab('login')">&larr; Kembali ke Halaman Siswa</a>
-            </div>
-        </div>
-
     </div>
 </div>
 
-<!-- 4. LAYAR GOOGLE FORM -->
+<!-- LAYAR GOOGLE FORM -->
 <div id="gformSection">
     <div class="gform-bar">
         <span style="color: #ffffff; font-size: 12px; font-weight: 600;">Ujian Online SMKN 5 Yogyakarta</span>
@@ -336,12 +285,7 @@
 
 <script>
     const SECRET_KEY = 5791;
-    const PIN_PENGAWAS = "861118";
-    let timerInterval = null;
 
-    // =========================================================================
-    // WAKE LOCK API (MENCEGAH LAYAR HP MATI / SLEEP SEBENTAR-SEBENTAR)
-    // =========================================================================
     let wakeLock = null;
 
     async function requestWakeLock() {
@@ -365,9 +309,6 @@
         }
     }
 
-    // =========================================================================
-    // 1. SKRIP ANTI-KECURANGAN (DETEKSI PINDAH TAB / KELUAR APLIKASI)
-    // =========================================================================
     let jumlahKabur = 0;
     const batasKabur = 3;
 
@@ -375,7 +316,6 @@
         const gformDisplay = document.getElementById('gformSection').style.display;
         const menuDisplay = document.getElementById('menuSection').style.display;
 
-        // Jika layar aktif kembali, re-aktivasikan Screen Wake Lock
         if (document.visibilityState === 'visible' && (gformDisplay === 'flex' || menuDisplay === 'block')) {
             await requestWakeLock();
         }
@@ -403,9 +343,6 @@
         }
     });
 
-    // =========================================================================
-    // 2. SISTEM TOKEN DINAMIS 15 MENIT
-    // =========================================================================
     function generate15MinToken() {
         const now = new Date();
         const tanggal = now.getDate();
@@ -419,14 +356,10 @@
         return "K5-" + String(hashCode).padStart(4, '0');
     }
 
-    // PENGATURAN JADWAL TAMPILAN MAPEL KELAS XII
     function renderMenuSchedule() {
         const now = new Date();
         const menitSekarang = (now.getHours() * 60) + now.getMinutes();
 
-        // Konversi Jam Ujian ke Total Menit:
-        // 07:30 = (7 * 60) + 30 = 450 menit
-        // 12:00 = (12 * 60) + 0 = 720 menit
         const kXIIStart = 450;
         const kXIIEnd = 720;
 
@@ -443,33 +376,24 @@
         }
     }
 
-    // Navigasi Antar Halaman
     function switchTab(target) {
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('menuSection').style.display = 'none';
-        document.getElementById('pengawasSection').style.display = 'none';
         document.getElementById('gformSection').style.display = 'none';
 
         if (target === 'login') {
             document.getElementById('loginSection').style.display = 'block';
-            clearInterval(timerInterval);
-            releaseWakeLock(); // Lepaskan pengunci layar saat kembali ke login
+            releaseWakeLock();
         } else if (target === 'menu') {
             renderMenuSchedule();
             document.getElementById('menuSection').style.display = 'block';
-        } else if (target === 'pengawas') {
-            document.getElementById('pengawasSection').style.display = 'block';
-            document.getElementById('pinSection').style.display = 'block';
-            document.getElementById('tokenDisplaySection').style.display = 'none';
-            document.getElementById('pinInput').value = '';
-            document.getElementById('pinError').style.display = 'none';
         }
     }
 
     function bukaGForm(urlForm) {
         document.getElementById('gformIframe').src = urlForm;
         document.getElementById('gformSection').style.display = 'flex';
-        requestWakeLock(); // Pastikan Wake Lock tetap aktif saat membuka Google Form
+        requestWakeLock();
     }
 
     function keluarDariSoal() {
@@ -486,7 +410,7 @@
 
         if (inputVal === validToken) {
             document.getElementById('loginError').style.display = 'none';
-            requestWakeLock(); // Aktifkan kunci layar setelah berhasil login
+            requestWakeLock();
             switchTab('menu');
         } else {
             document.getElementById('loginError').style.display = 'block';
@@ -496,36 +420,6 @@
     function logout() {
         document.getElementById('tokenInput').value = '';
         switchTab('login');
-    }
-
-    function verifyPin() {
-        const inputPin = document.getElementById('pinInput').value;
-        if (inputPin === PIN_PENGAWAS) {
-            document.getElementById('pinSection').style.display = 'none';
-            document.getElementById('tokenDisplaySection').style.display = 'block';
-            document.getElementById('pinError').style.display = 'none';
-            startPengawasEngine();
-        } else {
-            document.getElementById('pinError').style.display = 'block';
-        }
-    }
-
-    function startPengawasEngine() {
-        function update() {
-            const now = new Date();
-            document.getElementById('tokenVal').innerText = generate15MinToken();
-
-            const menitSaatIni = now.getMinutes();
-            const sisaMenit = 14 - (menitSaatIni % 15);
-            const sisaDetik = 59 - now.getSeconds();
-
-            document.getElementById('countdown').innerText = 
-                String(sisaMenit).padStart(2, '0') + ":" + String(sisaDetik).padStart(2, '0');
-        }
-
-        update();
-        clearInterval(timerInterval);
-        timerInterval = setInterval(update, 1000);
     }
 </script>
 
