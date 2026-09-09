@@ -387,15 +387,21 @@
         }
     });
 
-    function generate15MinToken() {
+   function generate15MinToken() {
         const now = new Date();
         const tanggal = now.getDate();
         const bulan = now.getMonth() + 1;
         const jam = now.getHours();
-        
         const blok15Menit = Math.floor(now.getMinutes() / 15);
-        const seed = (tanggal * 100000) + (bulan * 1000) + (jam * 10) + blok15Menit + SECRET_KEY;
-        const hashCode = Math.floor(Math.abs(Math.sin(seed) * 10000));
+        
+        // 1. Pembentukan Seed berdasarkan waktu + SECRET_KEY
+        let seed = (tanggal * 73) + (bulan * 31) + (jam * 13) + (blok15Menit * 7) + SECRET_KEY;
+        
+        // 2. Formula LCG (a * seed + c) % m menggunakan konstanta acak standar
+        let lcgVal = (seed * 1664525 + 1013904223) % 4294967296;
+        
+        // 3. Modulo 10000 untuk mengambil 4 digit angka acak
+        const hashCode = Math.abs(lcgVal) % 10000;
         
         return "K5-" + String(hashCode).padStart(4, '0');
     }
