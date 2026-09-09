@@ -115,7 +115,8 @@
         const seed = (tanggal * 100000) + (bulan * 1000) + (jam * 10) + blok15Menit + SECRET_KEY;
         const hashCode = Math.floor(Math.abs(Math.sin(seed) * 10000));
         
-        return "K5-" + String(hashCode).padStart(4, '0');
+        // Mengubah prefix dari 'K5-' menjadi 'N-'
+        return "N-" + String(hashCode).padStart(4, '0');
     }
 
     function verifyPin() {
